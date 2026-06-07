@@ -1,18 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
-import { GitCompare, LogOut, User } from 'lucide-react';
+import { GitCompare, LogOut, User, Menu, X } from 'lucide-react';
 import { Button } from '@base-ui/react';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '@/redux/userSlice';
 import { useEffect } from 'react';
+import { API_BASE_URL } from '@/utils/config';
 
 const Navbar = () => {
   const { user } = useSelector(store => store.user)
   const { compareList } = useSelector(store => store.compare)
   const accessToken = localStorage.getItem('accessToken')
   const dispatch = useDispatch()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -24,7 +26,7 @@ const Navbar = () => {
   const Logoutout = async () => {
     try {
       const currentToken = localStorage.getItem("accessToken");
-      const res = await axios.post(`http://localhost:3000/api/v1/user/logout`, {}, {
+      const res = await axios.post(`${API_BASE_URL}/api/v1/user/logout`, {}, {
         headers: {
           Authorization: `Bearer ${currentToken}`
         }
@@ -137,9 +139,53 @@ const Navbar = () => {
             </Link>
           )}
 
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700/80 transition cursor-pointer"
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+
         </div>
 
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-slate-900 border-t border-slate-800 px-6 py-4 space-y-4 absolute left-0 right-0 top-20 shadow-xl z-40 transition-all duration-300 ease-in-out">
+          <ul className="flex flex-col gap-4 font-medium text-slate-300">
+            <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+              <li className="hover:text-blue-400 transition-all duration-300 py-2 border-b border-slate-800 text-sm tracking-wide">
+                Home
+              </li>
+            </Link>
+            <Link to="/explorer" onClick={() => setMobileMenuOpen(false)}>
+              <li className="hover:text-blue-400 transition-all duration-300 py-2 border-b border-slate-800 text-sm tracking-wide">
+                Explore Cars
+              </li>
+            </Link>
+            <Link to="/ai-recommend" onClick={() => setMobileMenuOpen(false)}>
+              <li className="hover:text-blue-300 transition-all duration-300 py-2 px-3 rounded-lg bg-blue-500/10 border border-blue-500/25 text-blue-300 font-semibold inline-block text-sm tracking-wide">
+                AI Matchmaker
+              </li>
+            </Link>
+            <Link to="/showrooms" onClick={() => setMobileMenuOpen(false)}>
+              <li className="hover:text-blue-400 transition-all duration-300 py-2 border-b border-slate-800 text-sm tracking-wide">
+                Showrooms
+              </li>
+            </Link>
+            {user && (
+              <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>
+                <li className="hover:text-blue-400 transition-all duration-300 py-2 text-sm tracking-wide">
+                  Dashboard
+                </li>
+              </Link>
+            )}
+          </ul>
+        </div>
+      )}
     </header>
   )
 }

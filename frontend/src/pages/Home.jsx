@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Search, Sparkles, Shield, Compass, Star, ChevronRight, Award, Gauge } from "lucide-react";
 import axios from "axios";
 import Footer from "@/components/Footer";
+import { API_BASE_URL, FALLBACK_CAR_IMAGE } from "@/utils/config";
 
 const MOCK_FEATURED_CARS = [
   {
@@ -88,7 +89,7 @@ const Home = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/car");
+        const res = await axios.get(`${API_BASE_URL}/api/v1/car`);
         if (res.data.success && res.data.cars.length > 0) {
           setCars(res.data.cars.slice(0, 3));
         } else {
@@ -236,6 +237,7 @@ const Home = () => {
                       src={car.image}
                       alt={car.name}
                       className="w-full h-48 object-cover"
+                      onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
                     />
                     <span className="absolute top-4 left-4 bg-slate-900/90 backdrop-blur-md text-blue-400 text-[10px] font-extrabold uppercase tracking-widest border border-slate-700/60 px-3 py-1 rounded-full">
                       {car.category}

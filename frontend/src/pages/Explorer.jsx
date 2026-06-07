@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCompare, toggleWishlistLocal } from "@/redux/compareSlice";
 import axios from "axios";
 import { toast } from "sonner";
+import { API_BASE_URL, FALLBACK_CAR_IMAGE } from "@/utils/config";
 
 import { MOCK_EXPLORER_CARS } from "@/utils/mockData";
 
@@ -30,6 +31,8 @@ const Explorer = () => {
   const [maxPrice, setMaxPrice] = useState(80);
   const [minSafety, setMinSafety] = useState(0);
   const [sortBy, setSortBy] = useState("");
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+
 
   const fetchFilteredCars = async () => {
     setLoading(true);
@@ -44,7 +47,7 @@ const Explorer = () => {
       if (minSafety > 0) params.append("minSafety", minSafety);
       if (sortBy) params.append("sort", sortBy);
 
-      const res = await axios.get(`http://localhost:3000/api/v1/car?${params.toString()}`);
+      const res = await axios.get(`${API_BASE_URL}/api/v1/car?${params.toString()}`);
       if (res.data.success && res.data.cars.length > 0) {
         setCars(res.data.cars);
       } else {
@@ -128,7 +131,7 @@ const Explorer = () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const res = await axios.post(
-        "http://localhost:3000/api/v1/user/wishlist",
+        `${API_BASE_URL}/api/v1/user/wishlist`,
         { carId: car._id },
         {
           headers: {
@@ -158,9 +161,20 @@ const Explorer = () => {
           <p className="text-slate-400 text-sm mt-2">Filter and inspect ex-showroom prices, safety parameters, transmission structures, and direct compatibility indexes.</p>
         </div>
 
+        {/* Mobile Filter Toggle */}
+        <div className="lg:hidden mb-4">
+          <button
+            onClick={() => setShowMobileFilters(!showMobileFilters)}
+            className="flex items-center justify-center gap-2 w-full py-3 bg-slate-900 border border-slate-800 hover:border-blue-500/30 rounded-2xl font-bold text-sm text-slate-300 hover:text-white transition cursor-pointer"
+          >
+            <SlidersHorizontal size={16} className="text-blue-500" />
+            {showMobileFilters ? "Hide Filters" : "Show Filters"}
+          </button>
+        </div>
+
         <div className="grid lg:grid-cols-4 gap-8">
 
-          <div className="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-3xl p-6 h-fit space-y-6 sticky top-24 shadow-xl">
+          <div className={`${showMobileFilters ? "block" : "hidden"} lg:block lg:col-span-1 bg-slate-900 border border-slate-800 rounded-3xl p-6 h-fit space-y-6 lg:sticky lg:top-24 shadow-xl`}>
             <div className="flex justify-between items-center pb-4 border-b border-slate-800">
               <span className="font-extrabold text-lg flex items-center gap-2 text-white">
                 <SlidersHorizontal size={18} className="text-blue-500" /> Filters
@@ -348,6 +362,7 @@ const Explorer = () => {
                           src={car.image}
                           alt={car.name}
                           className="w-full h-52 object-cover"
+                          onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
                         />
 
                         <button

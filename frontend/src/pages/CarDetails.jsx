@@ -4,6 +4,7 @@ import { Star, ShieldAlert, Sparkles, User, Calendar, MapPin, Fuel, Shield, Circ
 import axios from "axios";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
+import { API_BASE_URL, FALLBACK_CAR_IMAGE } from "@/utils/config";
 
 import { MOCK_CAR_DETAILS } from "@/utils/mockData";
 
@@ -49,7 +50,7 @@ const CarDetails = () => {
     const fetchCarDetails = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`http://localhost:3000/api/v1/car/${carId}`);
+        const res = await axios.get(`${API_BASE_URL}/api/v1/car/${carId}`);
         if (res.data.success) {
           setCar(res.data.car);
           setReviews(res.data.reviews || []);
@@ -120,11 +121,11 @@ const CarDetails = () => {
       toast.error("Please fill in date and contact phone number!");
       return;
     }
-    bookingLoading(true);
+    setBookingLoading(true);
     try {
       const accessToken = localStorage.getItem("accessToken");
       const res = await axios.post(
-        "http://localhost:3000/api/v1/booking",
+        `${API_BASE_URL}/api/v1/booking`,
         {
           carId: car._id,
           showroomName: selectedShowroom,
@@ -165,7 +166,7 @@ const CarDetails = () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const res = await axios.post(
-        `http://localhost:3000/api/v1/car/${car._id}/review`,
+        `${API_BASE_URL}/api/v1/car/${car._id}/review`,
         {
           rating: reviewRating,
           comment: reviewComment,
@@ -227,6 +228,7 @@ const CarDetails = () => {
                 src={activeImage}
                 alt={car.name}
                 className="w-full h-80 md:h-96 object-cover rounded-2xl"
+                onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
               />
             </div>
 
@@ -240,7 +242,7 @@ const CarDetails = () => {
                       activeImage === img ? "border-blue-500 scale-105" : "border-slate-800 hover:border-slate-700"
                     }`}
                   >
-                    <img src={img} alt="Thumb" className="w-full h-full object-cover" />
+                    <img src={img} alt="Thumb" className="w-full h-full object-cover" onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }} />
                   </button>
                 ))}
               </div>

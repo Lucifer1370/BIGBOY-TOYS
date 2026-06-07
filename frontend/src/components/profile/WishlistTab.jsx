@@ -3,6 +3,7 @@ import { Star, Trash2, Info } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import { API_BASE_URL, FALLBACK_CAR_IMAGE } from "@/utils/config";
 
 const WishlistTab = ({ accessToken }) => {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -11,7 +12,7 @@ const WishlistTab = ({ accessToken }) => {
   const fetchWishlist = async () => {
     setWishlistLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/user/wishlist", {
+      const res = await axios.get(`${API_BASE_URL}/api/v1/user/wishlist`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       if (res.data.success) {
@@ -27,7 +28,7 @@ const WishlistTab = ({ accessToken }) => {
   const handleToggleWishlist = async (carId, name) => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/user/wishlist",
+        `${API_BASE_URL}/api/v1/user/wishlist`,
         { carId },
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -82,7 +83,7 @@ const WishlistTab = ({ accessToken }) => {
                 <Trash2 size={12} />
               </button>
 
-              <img src={car.image} alt={car.name} className="w-full h-36 object-cover rounded-xl" />
+              <img src={car.image} alt={car.name} className="w-full h-36 object-cover rounded-xl" onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }} />
 
               <div className="mt-4 space-y-2">
                 <div>

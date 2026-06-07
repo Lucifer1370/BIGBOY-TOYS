@@ -12,11 +12,12 @@ const verifyEmail = async(token, email) => {
             pass: process.env.EMAIL_PASS
         }
     });
+    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
     const mailConfiguration = {
         from: process.env.EMAIL_USER,
         to: email,
         subject: "Verify your email for BigBoyToys.in",
-        text: `Click on the link to verify your email : http://localhost:5173/verify/${token}`
+        text: `Click on the link to verify your email : ${frontendUrl}/verify/${token}`
     };
     await transporter.sendMail(mailConfiguration) 
        

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronRight } from "lucide-react";
+import { FALLBACK_CAR_IMAGE } from "@/utils/config";
 
 const RecommendationResults = ({ recommendations, priority, handleRetake }) => {
   return (
@@ -40,6 +41,7 @@ const RecommendationResults = ({ recommendations, priority, handleRetake }) => {
                 src={car.image}
                 alt={car.name}
                 className="w-full h-44 object-cover rounded-2xl shadow-md border border-slate-850"
+                onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
               />
             </div>
 

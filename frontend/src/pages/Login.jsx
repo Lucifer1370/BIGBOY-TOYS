@@ -19,10 +19,9 @@ import { toast } from "sonner";
 import Signup from "./Signup";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/redux/userSlice";
+import { API_BASE_URL } from "@/utils/config";
+
 const Login = () => {
-
-
-
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -50,7 +49,7 @@ const Login = () => {
 
           setLoading(true)
 
-      const res = await axios.post('http://localhost:3000/api/v1/user/login', formData,{
+      const res = await axios.post(`${API_BASE_URL}/api/v1/user/login`, formData,{
         headers:{
           "Content-Type": "application/json"
         }

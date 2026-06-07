@@ -4,6 +4,7 @@ import { removeFromCompare, clearCompare } from "@/redux/compareSlice";
 import { Link } from "react-router-dom";
 import { Trash2, GitCompare, ArrowRight, Gauge, Shield, Zap, Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { FALLBACK_CAR_IMAGE } from "@/utils/config";
 
 const Compare = () => {
   const dispatch = useDispatch();
@@ -102,6 +103,12 @@ const Compare = () => {
   const safetyWinner = getWinnerIndex("safetyRating");
   const hpWinner = getWinnerIndex("horsepower");
 
+  const gridColsClass = compareList.length === 1 
+    ? "md:grid-cols-1" 
+    : compareList.length === 2 
+      ? "md:grid-cols-2" 
+      : "md:grid-cols-3";
+
   return (
     <div className="bg-slate-950 text-slate-100 min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-6 space-y-10">
@@ -119,7 +126,7 @@ const Compare = () => {
           </button>
         </div>
 
-        <div className={`grid gap-6 grid-cols-1 md:grid-cols-${compareList.length}`}>
+        <div className={`grid gap-6 grid-cols-1 ${gridColsClass}`}>
           {compareList.map((car, idx) => (
             <div
               key={car._id || idx}
@@ -137,6 +144,7 @@ const Compare = () => {
                 src={car.image}
                 alt={car.name}
                 className="w-full h-44 object-cover rounded-2xl"
+                onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
               />
 
               <div className="space-y-1">

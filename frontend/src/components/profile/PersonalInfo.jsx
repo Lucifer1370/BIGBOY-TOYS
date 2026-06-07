@@ -4,6 +4,7 @@ import { setUser } from "@/redux/userSlice";
 import { User } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";
+import { API_BASE_URL } from "@/utils/config";
 
 const PersonalInfo = ({ user, accessToken }) => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const PersonalInfo = ({ user, accessToken }) => {
     e.preventDefault();
     setDetailsLoading(true);
     try {
-      const res = await axios.put("http://localhost:3000/api/v1/user/profile", formData, {
+      const res = await axios.put(`${API_BASE_URL}/api/v1/user/profile`, formData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,

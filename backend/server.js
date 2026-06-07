@@ -9,9 +9,21 @@ dotenv.config();
 const app = express()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://bigboy-toys.vercel.app'
+];
+
 app.use(cors({
-    origin:'http://localhost:5173',
-    credentials :true
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vercel.app')) {
+            return callback(null, true);
+        }
+        return callback(new Error('Not allowed by CORS'), false);
+    },
+    credentials: true
 }))
 
 app.use('/api/v1/user', userRoute)

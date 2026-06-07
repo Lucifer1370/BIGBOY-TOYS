@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Sparkles } from "lucide-react";
 import axios from "axios";
+import { API_BASE_URL } from "@/utils/config";
 
 import { ALL_CARS_POOL } from "@/utils/mockData";
 import BudgetStep from "@/components/recommend/BudgetStep";
@@ -39,7 +40,7 @@ const AIRecommendation = () => {
     setLoading(true);
     let carPool = ALL_CARS_POOL;
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/car");
+      const res = await axios.get(`${API_BASE_URL}/api/v1/car`);
       if (res.data.success && res.data.cars.length > 0) {
         carPool = res.data.cars;
       }

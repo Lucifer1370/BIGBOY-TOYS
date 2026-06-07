@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Calendar } from "lucide-react";
 import axios from "axios";
+import { API_BASE_URL } from "@/utils/config";
 
 const BookingsTab = ({ accessToken }) => {
   const [bookings, setBookings] = useState([]);
@@ -9,7 +10,7 @@ const BookingsTab = ({ accessToken }) => {
   const fetchBookings = async () => {
     setBookingsLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/booking/my-bookings", {
+      const res = await axios.get(`${API_BASE_URL}/api/v1/booking/my-bookings`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       if (res.data.success) {

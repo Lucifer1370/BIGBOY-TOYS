@@ -1,6 +1,6 @@
-require("dotenv").config();
+require("dotenv").config({ path: require("path").resolve(__dirname, "../.env") });
 const mongoose = require("mongoose");
-const Car = require("./models/carModel");
+const Car = require("../models/carModel");
 
 const imageMapping = {
   "Maruti Suzuki Fronx": {

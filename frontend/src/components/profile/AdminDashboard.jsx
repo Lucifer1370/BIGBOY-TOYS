@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Plus, Trash2, Calendar, LayoutDashboard } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";
+import { API_BASE_URL, FALLBACK_CAR_IMAGE } from "@/utils/config";
 
 const AdminDashboard = ({ accessToken }) => {
   const [allCars, setAllCars] = useState([]);
@@ -37,19 +38,19 @@ const AdminDashboard = ({ accessToken }) => {
   const fetchAdminData = async () => {
     setAdminLoading(true);
     try {
-      const bookingRes = await axios.get("http://localhost:3000/api/v1/booking/all-bookings", {
+      const bookingRes = await axios.get(`${API_BASE_URL}/api/v1/booking/all-bookings`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       if (bookingRes.data.success) {
         setAllBookings(bookingRes.data.bookings);
       }
 
-      const carRes = await axios.get("http://localhost:3000/api/v1/car");
+      const carRes = await axios.get(`${API_BASE_URL}/api/v1/car`);
       if (carRes.data.success) {
         setAllCars(carRes.data.cars);
       }
 
-      const userRes = await axios.get("http://localhost:3000/api/v1/user/get-all-user", {
+      const userRes = await axios.get(`${API_BASE_URL}/api/v1/user/get-all-user`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       if (userRes.data.success) {
@@ -65,7 +66,7 @@ const AdminDashboard = ({ accessToken }) => {
   const handleUpdateBookingStatus = async (bookingId, newStatus) => {
     try {
       const res = await axios.put(
-        `http://localhost:3000/api/v1/booking/status/${bookingId}`,
+        `${API_BASE_URL}/api/v1/booking/status/${bookingId}`,
         { status: newStatus },
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -84,7 +85,7 @@ const AdminDashboard = ({ accessToken }) => {
   const handleDeleteCar = async (carId, name) => {
     if (!window.confirm(`Are you absolutely sure you want to delete the ${name} listing?`)) return;
     try {
-      const res = await axios.delete(`http://localhost:3000/api/v1/car/${carId}`, {
+      const res = await axios.delete(`${API_BASE_URL}/api/v1/car/${carId}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       if (res.data.success) {
@@ -119,7 +120,7 @@ const AdminDashboard = ({ accessToken }) => {
         cons: finalCons,
       };
 
-      const res = await axios.post("http://localhost:3000/api/v1/car", payload, {
+      const res = await axios.post(`${API_BASE_URL}/api/v1/car`, payload, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
@@ -465,7 +466,7 @@ const AdminDashboard = ({ accessToken }) => {
               {allCars.map((car, idx) => (
                 <tr key={car._id || idx} className="hover:bg-slate-850/10">
                   <td className="px-6 py-3">
-                    <img src={car.image} alt={car.name} className="w-14 h-9 object-cover rounded-md border border-slate-800" />
+                    <img src={car.image} alt={car.name} className="w-14 h-9 object-cover rounded-md border border-slate-800" onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }} />
                   </td>
                   <td className="px-6 py-3">
                     <span className="font-extrabold text-white block">{car.name}</span>
