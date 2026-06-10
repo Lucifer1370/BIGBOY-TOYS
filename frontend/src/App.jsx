@@ -4,8 +4,6 @@ import Navbar from "./components/Navbar"
 import Home from "./pages/Home" 
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
-import Verify from "./pages/Verify"
-import VerifyEmail from "./pages/VerifyEmail"
 import Profile from "./pages/Profile"
 import Explorer from "./pages/Explorer"
 import CarDetails from "./pages/CarDetails"
@@ -24,14 +22,6 @@ const router = createBrowserRouter([{
 {
   path:'/login',
   element: <> <Login/> </>
-},
-{
-  path:'/verify',
-  element: <> <Verify/> </>
-},
-{
-  path:'/verify/:token',
-  element: <> <VerifyEmail/> </>
 },
 {
   path:'/profile',

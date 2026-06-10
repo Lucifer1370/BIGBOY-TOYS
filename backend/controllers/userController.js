@@ -3,7 +3,7 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Session = require("../models/sessionModel.js");
 const {sendOtpMail} = require("../emailVerify/sendOtpMail.js")
-const { verifyEmail } = require("../emailVerify/verifyEmail.js");
+
 
 
 const register = async (req, res) => {
@@ -51,88 +51,7 @@ const register = async (req, res) => {
 };
 
 
-const verify = async (req, res) => {
-    try {
-        const authHeader = req.headers.authorization;
-        if (!authHeader || !authHeader.startsWith("Bearer ")) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid Token"
-            })
-        }
-        const token = authHeader.split(" ")[1];
-        let decoded
-        try {
-            decoded = jwt.verify(token, process.env.SECRET_KEY)
 
-        } catch (error) {
-            if (error.name == "TokenExpiredError") {
-                return res.status(400).json({
-                    success: false,
-                    message: "Token Expired"
-                });
-            }
-            return res.status(400).json({
-                success: false,
-                message: "Token verification failed"
-            });
-        }
-        const user = await User.findById(decoded.id)
-        if (!user) {
-            return res.status(400).json({
-                success: false,
-                message: "user not Found"
-            })
-        }
-        user.token = null;
-        user.isVerified = true;
-        await user.save();
-        return res.status(200).json({
-            success: true,
-            message: "Email Verified successfully",
-            user: user
-        })
-
-    }
-    catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
-
-
-
-const reVerify = async (req, res) => {
-    try {
-        const { email } = req.body;
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({
-                success: false,
-                message: "user not founf"
-            })
-        }
-        const token = jwt.sign({ id: user._id },
-            process.env.SECRET_KEY, { expiresIn: "10m" })
-        verifyEmail(token, email);
-        user.token = token;
-        await user.save();
-        return res.status(200).json({
-            success: true,
-            message: "Token send successfully",
-            token: user.token
-        })
-    }
-    catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        })
-
-    }
-};
 
 
 
@@ -478,4 +397,4 @@ const getWishlist = async (req, res) => {
     }
 };
 
-module.exports = { register, verify, reVerify, login, logout, forgotPassword , verifyOTPandResetPas , getAllUser , getUserbyId, updateProfile, toggleWishlist, getWishlist };
+module.exports = { register, login, logout, forgotPassword , verifyOTPandResetPas , getAllUser , getUserbyId, updateProfile, toggleWishlist, getWishlist };
