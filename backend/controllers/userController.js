@@ -33,12 +33,12 @@ const register = async (req, res) => {
         const token = jwt.sign({
             id: newUser._id
         }, process.env.SECRET_KEY, { expiresIn: "10m" })
-        await verifyEmail(token, email)
+        // await verifyEmail(token, email)
         newUser.token = token
         await newUser.save()
         return res.status(201).json({
             success: true,
-            message: "User Register successfully",
+            message: "User registered successfully! Please log in.",
             user: newUser
         })
     } catch (error) {
