@@ -9,11 +9,9 @@ const compareSlice = createSlice({
   reducers: {
     addToCompare: (state, action) => {
       const car = action.payload;
-      const exists = state.compareList.find((c) => c._id === car._id);
-      if (!exists) {
-        if (state.compareList.length < 3) {
-          state.compareList.push(car);
-        }
+      const exists = state.compareList.some((c) => c._id === car._id);
+      if (!exists && state.compareList.length < 3) {
+        state.compareList.push(car);
       }
     },
     removeFromCompare: (state, action) => {
@@ -27,9 +25,9 @@ const compareSlice = createSlice({
     },
     toggleWishlistLocal: (state, action) => {
       const car = action.payload;
-      const exists = state.wishlist.find((c) => c._id === car._id || c === car._id);
+      const exists = state.wishlist.some((c) => (c._id || c) === car._id);
       if (exists) {
-        state.wishlist = state.wishlist.filter((c) => c._id !== car._id && c !== car._id);
+        state.wishlist = state.wishlist.filter((c) => (c._id || c) !== car._id);
       } else {
         state.wishlist.push(car);
       }

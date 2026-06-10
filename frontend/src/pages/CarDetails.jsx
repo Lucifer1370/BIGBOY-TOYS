@@ -223,11 +223,11 @@ const CarDetails = () => {
         <div className="grid lg:grid-cols-12 gap-8">
           
           <div className="lg:col-span-6 space-y-4">
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 overflow-hidden shadow-2xl">
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 overflow-hidden shadow-2xl w-full aspect-video">
               <img
                 src={activeImage}
                 alt={car.name}
-                className="w-full h-80 md:h-96 object-cover rounded-2xl"
+                className="w-full h-full object-cover rounded-2xl"
                 onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
               />
             </div>
@@ -238,7 +238,7 @@ const CarDetails = () => {
                   <button
                     key={idx}
                     onClick={() => setActiveImage(img)}
-                    className={`w-24 h-16 rounded-xl border overflow-hidden cursor-pointer transition ${
+                    className={`w-24 aspect-[16/10] rounded-xl border overflow-hidden cursor-pointer transition ${
                       activeImage === img ? "border-blue-500 scale-105" : "border-slate-800 hover:border-slate-700"
                     }`}
                   >
@@ -276,23 +276,23 @@ const CarDetails = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div className="bg-slate-900 border border-slate-800 p-4.5 rounded-2xl">
-                <Fuel size={20} className="text-blue-400 mx-auto mb-2" />
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block">Fuel System</span>
-                <span className="font-extrabold text-sm text-white mt-1 block">{car.fuelType}</span>
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-4 text-center">
+              <div className="bg-slate-900 border border-slate-800 p-2 sm:p-4.5 rounded-2xl">
+                <Fuel className="text-blue-400 mx-auto mb-1.5 sm:mb-2 w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-[8px] sm:text-[10px] text-slate-500 font-bold uppercase tracking-widest block">Fuel System</span>
+                <span className="font-extrabold text-[10px] sm:text-sm text-white mt-0.5 sm:mt-1 block truncate">{car.fuelType}</span>
               </div>
 
-              <div className="bg-slate-900 border border-slate-800 p-4.5 rounded-2xl">
-                <Zap size={20} className="text-indigo-400 mx-auto mb-2" />
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block">Horsepower</span>
-                <span className="font-extrabold text-sm text-white mt-1 block">{car.horsepower} BHP</span>
+              <div className="bg-slate-900 border border-slate-800 p-2 sm:p-4.5 rounded-2xl">
+                <Zap className="text-indigo-400 mx-auto mb-1.5 sm:mb-2 w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-[8px] sm:text-[10px] text-slate-500 font-bold uppercase tracking-widest block">Horsepower</span>
+                <span className="font-extrabold text-[10px] sm:text-sm text-white mt-0.5 sm:mt-1 block truncate">{car.horsepower} BHP</span>
               </div>
 
-              <div className="bg-slate-900 border border-slate-800 p-4.5 rounded-2xl">
-                <Shield size={20} className="text-purple-400 mx-auto mb-2" />
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block">ADAS Safe</span>
-                <span className="font-extrabold text-sm text-white mt-1 block">{car.adas ? "Enabled" : "N/A"}</span>
+              <div className="bg-slate-900 border border-slate-800 p-2 sm:p-4.5 rounded-2xl">
+                <Shield className="text-purple-400 mx-auto mb-1.5 sm:mb-2 w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-[8px] sm:text-[10px] text-slate-500 font-bold uppercase tracking-widest block">ADAS Safe</span>
+                <span className="font-extrabold text-[10px] sm:text-sm text-white mt-0.5 sm:mt-1 block truncate">{car.adas ? "Enabled" : "N/A"}</span>
               </div>
             </div>
           </div>

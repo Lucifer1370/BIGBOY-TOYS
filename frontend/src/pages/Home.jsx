@@ -122,7 +122,7 @@ const Home = () => {
               <Sparkles size={14} className="text-amber-400 animate-pulse" /> BigBoyToys Elite
             </span>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight tracking-tight text-white">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight tracking-tight text-white">
               The Smart Way to <br />
               <span className="bg-gradient-to-r from-amber-400 via-yellow-300 to-orange-500 bg-clip-text text-transparent">
                 Discover Your Drive
@@ -161,7 +161,7 @@ const Home = () => {
               <div className="absolute -top-12 -left-12 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl"></div>
               <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl"></div>
               <img
-                src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&auto=format&fit=crop&q=80"
+                src="/cars/xuv700.jpg"
                 alt="Mahindra XUV700"
                 className="w-full h-56 object-cover rounded-2xl drop-shadow-[0_20px_50px_rgba(59,130,246,0.3)] group-hover:rotate-1 transition-all duration-500"
               />
@@ -226,20 +226,20 @@ const Home = () => {
               ))}
             </div>
           ) : (
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {cars.map((car, index) => (
                 <div
                   key={car._id || index}
-                  className="bg-slate-900 border border-slate-800/80 rounded-3xl shadow-xl overflow-hidden hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
+                  className="group bg-slate-900 border border-slate-800/80 rounded-3xl shadow-xl overflow-hidden hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
                 >
-                  <div className="relative">
+                  <div className="relative overflow-hidden w-full aspect-video border-b border-slate-800/60">
                     <img
                       src={car.image}
                       alt={car.name}
-                      className="w-full h-48 object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
                     />
-                    <span className="absolute top-4 left-4 bg-slate-900/90 backdrop-blur-md text-blue-400 text-[10px] font-extrabold uppercase tracking-widest border border-slate-700/60 px-3 py-1 rounded-full">
+                    <span className="absolute top-4 left-4 bg-slate-900/90 backdrop-blur-md text-blue-400 text-[10px] font-extrabold uppercase tracking-widest border border-slate-700/60 px-3 py-1 rounded-full z-10">
                       {car.category}
                     </span>
                   </div>
@@ -285,7 +285,7 @@ const Home = () => {
             <p className="text-slate-400 mt-4">We empower car buyers with live calculation metrics, safety rating indices, and direct comparison systems.</p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="p-8 bg-slate-900 border border-slate-800/80 rounded-3xl space-y-4">
               <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
                 <Sparkles size={24} />

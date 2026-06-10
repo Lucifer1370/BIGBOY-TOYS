@@ -12,7 +12,7 @@ const FuelPrefStep = ({ fuelPref, setFuelPref, handleNextStep, handlePrevStep })
         <p className="text-slate-400 text-xs">We structure options matching your carbon footprint and running economy plans.</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 pt-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
         {["Petrol", "Diesel", "Electric", "Hybrid", "No Preference"].map((fuel) => (
           <button
             key={fuel}
@@ -22,7 +22,7 @@ const FuelPrefStep = ({ fuelPref, setFuelPref, handleNextStep, handlePrevStep })
               fuelPref === fuel
                 ? "bg-teal-600 text-white border-teal-500 shadow-lg shadow-teal-500/20"
                 : "bg-slate-950 border-slate-850 text-slate-400 hover:text-white"
-            } ${fuel === "No Preference" ? "col-span-2" : ""}`}
+            } ${fuel === "No Preference" ? "col-span-1 sm:col-span-2" : ""}`}
           >
             <span className="text-base font-extrabold uppercase">{fuel}</span>
           </button>

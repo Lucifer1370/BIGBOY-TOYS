@@ -70,20 +70,27 @@ const WishlistTab = ({ accessToken }) => {
           <p className="text-slate-500 text-xs">Explore cars and tap the star icon to save listings.</p>
         </div>
       ) : (
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           {wishlistItems.map((car, idx) => (
             <div
               key={car._id || idx}
-              className="bg-slate-950 border border-slate-850 p-5 rounded-2xl relative shadow-md text-left flex flex-col justify-between"
+              className="group bg-slate-950 border border-slate-850 p-5 rounded-2xl relative shadow-md text-left flex flex-col justify-between"
             >
               <button
                 onClick={() => handleToggleWishlist(car._id, car.name)}
-                className="absolute top-3 right-3 p-2 bg-slate-900 hover:bg-red-950 text-slate-400 hover:text-red-400 border border-slate-800 hover:border-red-900 rounded-full cursor-pointer transition animate-none"
+                className="absolute top-3 right-3 p-2 bg-slate-900 hover:bg-red-950 text-slate-400 hover:text-red-400 border border-slate-800 hover:border-red-900 rounded-full cursor-pointer transition animate-none z-10"
               >
                 <Trash2 size={12} />
               </button>
 
-              <img src={car.image} alt={car.name} className="w-full h-36 object-cover rounded-xl" onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }} />
+              <div className="relative overflow-hidden w-full aspect-video rounded-xl border border-slate-850">
+                <img
+                  src={car.image}
+                  alt={car.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
+                />
+              </div>
 
               <div className="mt-4 space-y-2">
                 <div>

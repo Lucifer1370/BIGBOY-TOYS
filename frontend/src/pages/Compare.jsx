@@ -140,12 +140,14 @@ const Compare = () => {
                 <Trash2 size={14} />
               </button>
 
-              <img
-                src={car.image}
-                alt={car.name}
-                className="w-full h-44 object-cover rounded-2xl"
-                onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
-              />
+              <div className="relative overflow-hidden w-full aspect-video rounded-2xl group">
+                <img
+                  src={car.image}
+                  alt={car.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
+                />
+              </div>
 
               <div className="space-y-1">
                 <span className="text-[10px] text-slate-500 font-extrabold uppercase tracking-widest block">

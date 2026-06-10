@@ -161,7 +161,7 @@ const Explorer = () => {
           <p className="text-slate-400 text-sm mt-2">Filter and inspect ex-showroom prices, safety parameters, transmission structures, and direct compatibility indexes.</p>
         </div>
 
-        {/* Mobile Filter Toggle */}
+
         <div className="lg:hidden mb-4">
           <button
             onClick={() => setShowMobileFilters(!showMobileFilters)}
@@ -355,13 +355,13 @@ const Explorer = () => {
                   return (
                     <div
                       key={car._id || index}
-                      className="bg-slate-900 border border-slate-855 hover:border-blue-500/30 rounded-3xl shadow-xl overflow-hidden hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                      className="group bg-slate-900 border border-slate-855 hover:border-blue-500/30 rounded-3xl shadow-xl overflow-hidden hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
                     >
-                      <div className="relative">
+                      <div className="relative overflow-hidden w-full aspect-video border-b border-slate-800/60">
                         <img
                           src={car.image}
                           alt={car.name}
-                          className="w-full h-52 object-cover"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
                         />
 

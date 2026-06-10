@@ -169,7 +169,7 @@ const AdminDashboard = ({ accessToken }) => {
   return (
     <div className="space-y-8">
       
-      {/* Admin stats */}
+
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         <div className="bg-slate-900 border border-slate-850 p-6 rounded-2xl text-center space-y-1">
           <span className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">Showroom Vehicles</span>
@@ -189,7 +189,7 @@ const AdminDashboard = ({ accessToken }) => {
         </div>
       </div>
 
-      {/* Car management */}
+
       <div className="bg-slate-900 border border-slate-850 p-8 rounded-3xl shadow-xl space-y-6">
         <div className="flex justify-between items-center pb-4 border-b border-slate-800">
           <div>
@@ -449,7 +449,7 @@ const AdminDashboard = ({ accessToken }) => {
           </form>
         )}
 
-        {/* Vehicles list table */}
+
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left text-slate-300 border-collapse">
             <thead>
@@ -493,7 +493,7 @@ const AdminDashboard = ({ accessToken }) => {
         </div>
       </div>
 
-      {/* Booking appointments management */}
+
       <div className="bg-slate-900 border border-slate-850 p-8 rounded-3xl shadow-xl space-y-6">
         <div>
           <h3 className="text-xl font-extrabold text-white flex items-center gap-2">

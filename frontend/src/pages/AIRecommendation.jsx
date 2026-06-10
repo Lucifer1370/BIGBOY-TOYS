@@ -51,7 +51,7 @@ const AIRecommendation = () => {
     const scoredList = carPool.map((car) => {
       let score = 0;
 
-      // Price mapping
+
       if (car.price <= budget) {
         score += 25;
       } else {
@@ -60,7 +60,7 @@ const AIRecommendation = () => {
         score += (25 - deduction);
       }
 
-      // Seating capacity mapping
+
       if (car.seatingCapacity >= familySize) {
         score += 20;
         if (car.seatingCapacity === familySize) score += 5;
@@ -68,7 +68,7 @@ const AIRecommendation = () => {
         score += 5;
       }
 
-      // Environment terrain mapping
+
       if (environment === "City") {
         if (car.category === "EV" || car.fuelType === "Electric" || car.mileage > 15) {
           score += 20;
@@ -85,14 +85,14 @@ const AIRecommendation = () => {
         score += 18;
       }
 
-      // Fuel mapping
+
       if (fuelPref === "No Preference" || car.fuelType === fuelPref) {
         score += 15;
       } else {
         score += 5;
       }
 
-      // Priority mapping
+
       if (priority === "Safety") {
         score += car.safetyRating * 4;
       } else if (priority === "Performance") {
@@ -111,7 +111,7 @@ const AIRecommendation = () => {
 
       const matchPercentage = Math.min(99, Math.round(score));
 
-      // Calculate matching reasons
+
       const reasons = [];
       if (car.price <= budget) {
         reasons.push(`Perfect fit for your ₹ ${budget} Lakh budget limit.`);
@@ -173,7 +173,7 @@ const AIRecommendation = () => {
           </div>
         )}
 
-        {/* Step components */}
+
         {step === 1 && (
           <BudgetStep
             budget={budget}

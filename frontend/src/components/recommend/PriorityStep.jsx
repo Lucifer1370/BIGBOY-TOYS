@@ -12,7 +12,7 @@ const PriorityStep = ({ priority, setPriority, handleNextStep, handlePrevStep })
         <p className="text-slate-400 text-xs">We customize algorithm score weightings to match what you value most.</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 pt-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
         {[
           { name: "Safety", detail: "NCAP Stars, Airbags, ADAS safe" },
           { name: "Performance", detail: "Horsepower power, Twin-Turbo, Speed" },

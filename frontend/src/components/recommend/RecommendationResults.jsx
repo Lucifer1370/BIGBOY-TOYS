@@ -30,17 +30,17 @@ const RecommendationResults = ({ recommendations, priority, handleRetake }) => {
         {recommendations.map((car, idx) => (
           <div
             key={car._id || idx}
-            className="bg-slate-900 border border-slate-850 hover:border-blue-500/30 rounded-3xl p-6 md:p-8 grid md:grid-cols-12 gap-8 shadow-xl items-center relative overflow-hidden transition-all duration-300"
+            className="group bg-slate-900 border border-slate-850 hover:border-blue-500/30 rounded-3xl p-6 md:p-8 grid md:grid-cols-12 gap-8 shadow-xl items-center relative overflow-hidden transition-all duration-300"
           >
             <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 text-xs px-4 py-1.5 rounded-full font-black border border-amber-400/20 shadow-md">
               🔥 {car.matchPercentage}% Match
             </div>
 
-            <div className="md:col-span-4">
+            <div className="md:col-span-4 relative overflow-hidden w-full aspect-video rounded-2xl border border-slate-850 shadow-md">
               <img
                 src={car.image}
                 alt={car.name}
-                className="w-full h-44 object-cover rounded-2xl shadow-md border border-slate-850"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 onError={(e) => { e.target.src = FALLBACK_CAR_IMAGE; }}
               />
             </div>
