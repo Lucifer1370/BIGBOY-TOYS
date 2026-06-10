@@ -125,7 +125,7 @@ const reVerify = async (req, res) => {
             token: user.token
         })
     }
-    catch {
+    catch (error) {
         res.status(500).json({
             success: false,
             message: error.message

@@ -19,7 +19,7 @@ const sendOtpMail = async (otp, email) => {
        html:`<p>your Otp for Password reset is <b>${otp}</b></p>`
     };
 
-     transporter.sendMail(mailConfiguration) 
+     await transporter.sendMail(mailConfiguration) 
        
         console.log("OTP sent Successfully");
     }
